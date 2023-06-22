@@ -1,18 +1,18 @@
+import logging
 from typing import Dict, List
 
-import logging
-
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import HuggingFaceEmbeddings, OpenAIEmbeddings
 from langchain.prompts.example_selector import (
     MaxMarginalRelevanceExampleSelector,
     SemanticSimilarityExampleSelector,
 )
 from langchain.prompts.example_selector.base import BaseExampleSelector
 
-from .fixed_example_selector import FixedExampleSelector
-from .vector_store import VectorStoreWrapper
 from autolabel.configs import AutolabelConfig
 from autolabel.schema import FewShotAlgorithm
+
+from .fixed_example_selector import FixedExampleSelector
+from .vector_store import VectorStoreWrapper
 
 ALGORITHM_TO_IMPLEMENTATION: Dict[FewShotAlgorithm, BaseExampleSelector] = {
     FewShotAlgorithm.FIXED: FixedExampleSelector,
@@ -49,7 +49,11 @@ class ExampleSelectorFactory:
             FewShotAlgorithm.SEMANTIC_SIMILARITY,
             FewShotAlgorithm.MAX_MARGINAL_RELEVANCE,
         ]:
-            params["embeddings"] = OpenAIEmbeddings()
+            # params["embeddings"] = OpenAIEmbeddings()
+            model_name = "sentence-transformers/all-MiniLM-L6-v2"
+            params["embeddings"] = HuggingFaceEmbeddings(
+                model_name=model_name,
+            )
             params["vectorstore_cls"] = VectorStoreWrapper
             input_keys = [
                 x
