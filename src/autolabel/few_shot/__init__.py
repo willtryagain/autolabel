@@ -43,6 +43,7 @@ class ExampleSelectorFactory:
             )
             return None
 
+
         num_examples = config.few_shot_num_examples()
         params = {"examples": examples, "k": num_examples}
         if algorithm in [
