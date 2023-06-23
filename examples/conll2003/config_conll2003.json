@@ -10,7 +10,6 @@
         "provider": "huggingface_pipeline",
         "name": "google/flan-t5-small",
         "params": {
-            "quantize" :"False"
         }
     },
     "prompt": {

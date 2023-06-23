@@ -51,9 +51,9 @@ class ExampleSelectorFactory:
             FewShotAlgorithm.MAX_MARGINAL_RELEVANCE,
         ]:
             # params["embeddings"] = OpenAIEmbeddings()
-            model_name = "sentence-transformers/all-MiniLM-L6-v2"
+            model_name = "dslim/bert-large-NER"
             params["embeddings"] = HuggingFaceEmbeddings(
-                model_name=model_name,
+                model_name=model_name
             )
             params["vectorstore_cls"] = VectorStoreWrapper
             input_keys = [
